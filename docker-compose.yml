@@ -1,22 +1,24 @@
 version: "3.8"
 
 services:
-  restic:
+  backup:
     build:
       dockerfile: Dockerfile
+    image: restic-with-rclone:1.0.0
     env_file:
-      - .env
+      - .env  # used to separate sensitive environment variables
     environment:
-      - RESTIC_REPOSITORY=rclone:mypcloud:/backup/restic/s1
+      - RESTIC_REPOSITORY=rclone:mypcloud:/backup/restic/${RESTIC_HOST}
       - RESTIC_CACHE_DIR=/restic-cache/
     volumes:
       - ./rclone.conf:/root/.config/rclone/rclone.conf
       - restic-cache:/restic-cache
-      - /Users:/Users # add at least one host volume
+      - /Users:/Users # add at least one volume
     command:
       - /bin/sh
       - -c
-      - tail -f /dev/null
+      - |
+        restic backup -v /Users/robert/Downloads && restic forget --keep-last 7 --keep-monthly 12 --prune
 
 volumes:
   restic-cache:
