@@ -18,7 +18,7 @@ services:
       - /bin/sh
       - -c
       - |
-        restic backup -v /Users/robert/Downloads && restic forget --keep-last 7 --keep-monthly 12 --prune
+        restic backup --host ${RESTIC_HOST} --verbose /Users/robert/Downloads && restic forget --keep-last 7 --keep-monthly 12 --prune
 
 volumes:
   restic-cache:
