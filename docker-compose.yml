@@ -20,7 +20,7 @@ services:
       - -c
       - |
         echo "# Start Restic-Backup in a Docker container at $(date +'%Y-%m-%d %H:%M')"
-        (set -x ; restic backup --host ${RESTIC_HOST} --verbose --exclude-file /excludes.txt ${RESTIC_BACKUP_DIR})
+        (set -x ; restic backup --host ${RESTIC_HOST} --no-scan --verbose --exclude-file /excludes.txt ${RESTIC_BACKUP_DIR})
         echo "# Start Restic-Forget in a Docker container at $(date +'%Y-%m-%d %H:%M')"
         (set -x ; restic forget --keep-last 7 --keep-monthly 12 --prune)
         echo "# Done at $(date +'%Y-%m-%d %H:%M')"
