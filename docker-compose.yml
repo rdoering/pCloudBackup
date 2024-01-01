@@ -13,13 +13,17 @@ services:
     volumes:
       - ./rclone.conf:/root/.config/rclone/rclone.conf
       - restic-cache:/restic-cache
-      - ./excludes:/excludes
-      - /Users:/Users # add at least one volume
+      - ./excludes.txt:/excludes.txt
+      - ${RESTIC_BACKUP_DIR}:${RESTIC_BACKUP_DIR}
     command:
       - /bin/sh
       - -c
       - |
-        restic backup --host ${RESTIC_HOST} --verbose --iexclude-file /excludes /Users/robert/Downloads && restic forget --keep-last 7 --keep-monthly 12 --prune
+        echo "# Start Restic-Backup at $(date +'%Y-%m-%d %H:%M')"
+        restic backup --host ${RESTIC_HOST} --verbose --exclude-file /excludes.txt ${RESTIC_BACKUP_DIR}
+        echo "# Start Restic-Forget at $(date +'%Y-%m-%d %H:%M')"
+        restic forget --keep-last 7 --keep-monthly 12 --prune
+        echo "# Done at $(date +'%Y-%m-%d %H:%M')"
 
 volumes:
   restic-cache:

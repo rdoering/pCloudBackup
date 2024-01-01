@@ -1,20 +1,28 @@
-.ds_store
-.ds_store?
-.appledouble
-._*
+# Mac OS
+.DS_Store
 .spotlight-v100
 .documentrevisions-v100
-.temporaryitems
 .trashes
 .fseventsd
+
+.appledouble
 .~lock.*
+._*
+.temporaryitems
+*.part
+
+# Windows OS
 ehthumbs.db
 thumbs.db
 hiberfil.sys
 pagefile.sys
 $recycle.bin
-*.part
-.pcloud
+
+# Synology
 @eaDir
 #recycle
 #snapshot
+@eaDir
+
+# pCloud
+.pcloud
