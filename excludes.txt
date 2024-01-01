@@ -20,9 +20,8 @@ $recycle.bin
 
 # Synology
 @eaDir
-#recycle
-#snapshot
-@eaDir
+\#recycle
+\#snapshot
 
 # pCloud
 .pcloud
